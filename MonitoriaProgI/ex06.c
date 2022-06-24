@@ -62,25 +62,44 @@ int EhVerdadeiro(int cpf[], int anoNasc, int pntAdvert) {
     return result;
 }
 
+int EhDigito(int d) {
+    return d >= '0' && d <= '9';
+}
+
 void main(void) {
     int n;
     do {
         system("cls||clear");
         printf("Digite o numero de usuarios a serem validados: ");
-        scanf("%d", &n);
+        scanf("%d%*c", &n);
         printf("\n");
     } while (n <= 0);
 
     int i;
     for (i = 1; i <= n; i++) {
         int cpf[11], anoNasc, pntAdvert;
-        char vv;
-        scanf("%1d%1d%1d%1d%1d%1d%1d%1d%1d%1d%1d%c", &cpf[0], &cpf[1], &cpf[2], &cpf[3], &cpf[4], &cpf[5], &cpf[6], &cpf[7], &cpf[8], &cpf[9], &cpf[10], &vv);
-        scanf("%d %d", &anoNasc, &pntAdvert);
 
-        if (!isspace(vv)) {
-            memset(cpf, 0, 11);
+        char curr;
+        int j;
+        for (j = 0; j <= 11; j++) {
+            scanf("%c", &curr);
+            if (!EhDigito(curr) || j == 11) {
+                break;
+            }
+            
+            cpf[j] = curr - '0';
         }
+        
+        if (!isspace(curr) || j != 11) {
+            /* Invalidates CPF */
+            cpf[0] = __INT_MAX__;
+            if (j > 11) {
+                scanf("%*[^\n]");
+            }
+        }
+
+        scanf("%d %d%*c", &anoNasc, &pntAdvert);
+
 
         int valido = EhVerdadeiro(cpf, anoNasc, pntAdvert);
 
