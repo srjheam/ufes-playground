@@ -25,6 +25,7 @@ void LiberarTPontos(tPontos_arr *tp) {
         LiberarPonto(tp->ps[i]);
     }
 
+    free(tp->ps);
     free(tp);
 }
 

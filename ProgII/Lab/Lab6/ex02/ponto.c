@@ -31,6 +31,7 @@ tPonto *carregarPonto(FILE *f) {
     tPonto *p = malloc(sizeof *p);
 
     if (fread(p, sizeof *p, 1, f) == 0) {
+        free(p);
         return NULL;
     }
 
